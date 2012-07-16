@@ -19,7 +19,7 @@ CELERYD_CHDIR="/Users/valdergallo/www/clock-pack/clock"
 
 # Extra arguments to celeryd
 # CELERYD_OPTS="--time-limit=300 --concurrency=1"
-CELERYD_OPTS="--time-limit=14000 -c 4 -E -B -s task_history"  # load celerymon, celerybeat, celeryevent
+CELERYD_OPTS="--time-limit=14000 -E -B"  # load celerymon, celerybeat, celeryevent
 
 BROKER_POOL_LIMIT = 1
 
