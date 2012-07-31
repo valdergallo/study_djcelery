@@ -1,5 +1,5 @@
 # List of modules to import when celery starts.
-CELERY_IMPORTS = ("app.tasks", )
+CELERY_IMPORTS = ("burn.tasks", )
 
 BROKER_HOST = "192.168.134.147"
 BROKER_PORT = 5672
@@ -12,23 +12,25 @@ BROKER_PASSWORD = "ubuntu"
 ## but if mostly spending CPU, try to keep it close to the
 ## number of CPUs on your machine. If not set, the number of CPUs/cores
 ## available will be used.
-CELERYD_CONCURRENCY = 4
+CELERYD_CONCURRENCY = 8
 
 # Where to chdir at start.
-CELERYD_CHDIR="/Users/valdergallo/www/clock-pack/clock"
+# CELERYD_CHDIR="/home/valdergallo/www/study-celery/study"
 
 # Extra arguments to celeryd
-# CELERYD_OPTS="--time-limit=300 --concurrency=1"
-CELERYD_OPTS="--time-limit=14000 -E -B"  # load celerymon, celerybeat, celeryevent
-
-BROKER_POOL_LIMIT = 1
+# CELERYD_OPTS="--time-limit=14000 -S -E -B"  # load celerymon, celerybeat, celeryevent
 
 # create log and daemon process
 #CELERYD_LOG_FILE="/tmp/celery.log"
 #CELERYD_PID_FILE="/tmp/celery.pid"
 
 # Extra arguments to celerybeat
-# CELERYBEAT_OPTS="--schedule=/var/run/celerybeat-schedule"
+# CELERYBEAT_OPTS="--schedule=/tmp/celerybeat-schedule"
+
+# Set annotate for time control
+CELERY_DEFAULT_QUEUE = "default"
+CELERY_DEFAULT_ROUTING_KEY = "default"
+CELERY_DEFAULT_EXCHANGE_TYPE = "fanout"
 
 CELERY_QUEUES = {
     "default": {
@@ -65,11 +67,6 @@ CELERY_QUEUES = {
     },
 }
 
-# Set annotate for time control
-CELERY_DEFAULT_QUEUE = "default"
-CELERY_DEFAULT_EXCHANGE_TYPE = "fanout"
-CELERY_DEFAULT_ROUTING_KEY = "default"
-
 ##########################################################
 # Celery
 # RabitQM Broker configuration for Celery
@@ -90,6 +87,18 @@ CELERY_QUEUE_CPOS_CLARO = 'cpos_claro'
 CELERY_QUEUE_CPOS_TIM = 'cpos_tim'
 CELERY_QUEUE_FLOWBOT = 'flowbot'
 CELERY_QUEUE_DATA_IMPORTER = 'data_importer'
+
+from datetime import timedelta
+
+
+CELERYBEAT_SCHEDULE = {
+        'runs-every-30-seconds': {
+        'task': 'burn.tasks.add',
+        'schedule': timedelta(seconds=10),
+        'args': (16, 16)
+    },
+}
+
 
 import djcelery
 djcelery.setup_loader()
