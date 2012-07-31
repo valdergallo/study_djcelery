@@ -1,5 +1,5 @@
 # List of modules to import when celery starts.
-CELERY_IMPORTS = ("burn.tasks", )
+CELERY_IMPORTS = ("app.tasks", )
 
 BROKER_HOST = "192.168.134.147"
 BROKER_PORT = 5672
@@ -93,7 +93,7 @@ from datetime import timedelta
 
 CELERYBEAT_SCHEDULE = {
         'runs-every-30-seconds': {
-        'task': 'burn.tasks.add',
+        'task': 'app.tasks.add',
         'schedule': timedelta(seconds=10),
         'args': (16, 16)
     },
