@@ -1,0 +1,11 @@
+Django==1.2.7
+amqplib==1.0.2
+anyjson==0.3.3
+argparse==1.2.1
+billiard==2.7.3.10
+celery==3.0.4
+django-celery==3.0.4
+ipython==0.13
+kombu==2.3.0
+python-dateutil==1.5
+wsgiref==0.1.2
